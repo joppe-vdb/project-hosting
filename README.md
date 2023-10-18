@@ -1,4 +1,4 @@
-# project-hosting
+# Project Hosting
 ## Introdcution
 In het tweede jaar van de opleiding Cloud and Cyber Security heb ik samen met een team van 5 personen een platform opgezet waar de studenten van het tweede jaar Application Development hun websites konden hosten. 
 
