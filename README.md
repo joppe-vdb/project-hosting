@@ -10,3 +10,6 @@ De omgeving draaide volledig op het datacenter (vSphere) van de school. Hier heb
 
 ## Proces
 Een korte samenvatting van hoe het proces van begin tot eind verliep voor de klant. De klant maakt een account aan via de API, waarna hij direct zijn eigen project kan aanmaken. Vervolgens kan hij zijn projectbestanden eenvoudig uploaden via de SFTP-server. Tot slot kan hij zijn project zien via de DNS-naam die de klant heeft gekregen bij het aanmaken van het project.
+
+## API
+Dit is een screen van de volledig API.
