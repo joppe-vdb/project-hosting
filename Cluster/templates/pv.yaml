@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: PROJECT-mysql-pv
+  namespace: PROJECT
+spec:
+  storageClassName: PROJECT-mysql-volume
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 172.26.105.1
+    path: /path/to/nfs/share
+
+
+    

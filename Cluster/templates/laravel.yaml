@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: PROJECT-pod
+  namespace: PROJECT
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: PROJECT
+  template:
+    metadata:
+      labels:
+        app: PROJECT
+    spec:
+      containers:
+        - name: PROJECT
+          image: bitnami/laravel:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: LARAVEL_DATABASE_HOST
+              value: PROJECT-mysql-service
+            - name: LARAVEL_DATABASE_PORT_NUMBER
+              value: "3306"
+            - name: LARAVEL_DATABASE_NAME
+              value: DB-NAME
+            - name: LARAVEL_DATABASE_USER
+              value: root
+            - name: LARAVEL_DATABASE_PASSWORD
+              value: test123
+          volumeMounts:
+            - name: nfs-volume
+              mountPath: /app
+
+      volumes:
+        - name: nfs-volume
+          nfs:
+            server: 172.26.105.1
+            path: /path/to/nfs/share
+
+

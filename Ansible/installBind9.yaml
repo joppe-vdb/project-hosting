@@ -1,0 +1,12 @@
+- hosts: dns
+  become: true
+  tasks:
+    - name: Install Bind9 package
+      apt:
+        name: bind9
+        state: present
+    - name: Start and enable Bind9 service
+      systemd:
+        name: bind9
+        state: started
+        enabled: true

@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: mysql-ccs5
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      MYSQL_DATABASE: projecthosting
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    secrets:
+      - mysql_root_password
+    ports:
+      - "3306:3306"
+
+secrets:
+  mysql_root_password:
+    file: ./secrets/mysql_root_password.txt
+
+volumes:
+  db_data:
+
+

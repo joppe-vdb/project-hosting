@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: PROJECT-pod
+  namespace: PROJECT
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: PROJECT
+  template:
+    metadata:
+      labels:
+        app: PROJECT
+    spec:
+      containers:
+      - name: PROJECT-nginx
+        image: nginx:latest
+        ports:
+          - containerPort: 8080
+        # volumeMounts:
+        #   - name: nfs-volume
+        #     mountPath: /var/www/html
+
+      - name: PROJECT-php
+        image: <PHPIMAGE>
+        # volumeMounts:
+        #   - name:  nfs-volume
+        #     mountPath: /var/www/html
+
+      - name: PROJECT-mysql
+        image: <MYSQLIMAGE>
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test123
+        ports:
+          - containerPort: 3306
+        # volumeMounts:
+        #   - name: PROJECT-mysql-persistent-storage
+        #     mountPath: /var/lib/mysql
+  
+    # volumes:
+    # - name: nfs-files
+    #   nfs:
+    #     server: 172.26.105.1
+    #     path: /path/to/nfs/share
+    # - name: PROJECT-mysql-persistent-storage
+    #   persistentVolumeClaim:
+    #     claimName: PROJECT-mysql-pvc

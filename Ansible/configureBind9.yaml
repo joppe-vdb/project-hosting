@@ -1,0 +1,44 @@
+- hosts: dns
+  become: true
+  vars:
+    zone_name: "ccs5"
+    zone_file: "/etc/bind/db.ccs5"
+  tasks:
+    - name: Create zone file
+      copy:
+        dest: "{{ zone_file }}"
+        content: |
+            $TTL    604800
+            @       IN      SOA     dns.ccs5. admin.ccs5. (
+                                2         ; Serial
+                            604800         ; Refresh
+                            86400         ; Retry
+                          2419200         ; Expire
+                            604800 )       ; Negative Cache TTL
+            ;
+            @       IN      NS      dns.ccs5.
+
+            dns             IN      A       172.26.105.2
+            main            IN      A       172.26.105.1
+            api             IN      A       172.26.105.1
+            rancher         IN      A       172.26.105.1
+
+    - name: Change permissions of /etc/bind/db.ccs5
+      file:
+        path: "{{ zone_file }}"
+        mode: '0644'
+
+
+    - name: Add zone to BIND config
+      lineinfile:
+        dest: /etc/bind/named.conf.local
+        line: |
+          zone "{{ zone_name }}" {
+              type master;
+              file "{{ zone_file }}";
+          };
+
+    - name: Restart bind9.service
+      service:
+        name: bind9.service
+        state: restarted

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: PROJECT-mysql-pvc
+  namespace: PROJECT
+spec:
+  storageClassName: PROJECT-mysql-volume
+  volumeName: PROJECT-mysql-pv
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+      
+      

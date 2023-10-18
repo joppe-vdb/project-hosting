@@ -1,0 +1,14 @@
+- hosts: DNS
+  become: true
+  tasks:
+    - name: Add DNS server to resolved.conf
+      lineinfile:
+        path: /etc/systemd/resolved.conf
+        line: "DNS=172.26.105.2"
+      notify: restart systemd-resolved
+
+  handlers:
+    - name: restart systemd-resolved
+      systemd:
+        name: systemd-resolved
+        state: restarted

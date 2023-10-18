@@ -1,0 +1,23 @@
+- hosts: DNS
+  become: true
+  vars:
+    zone_file: "/etc/bind/db.ccs5"
+  tasks:
+    - name: Add record to zone file worker 1
+      lineinfile:
+        dest: "{{ zone_file }}"
+        line: "{{ projectname }}            IN      A       172.26.192.239"
+    - name: Add record to zone file worker 2
+      lineinfile:
+        dest: "{{ zone_file }}"
+        line: " {{ projectname }}           IN      A       172.26.192.68"
+
+    - name: Add record to zone file worker 3
+      lineinfile:
+        dest: " {{ zone_file }}"
+        line: " {{ projectname }}           IN      A       172.26.192.121"
+
+    - name: Restart bind9
+      service:
+        name: bind9
+        state: restarted
