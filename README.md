@@ -13,6 +13,7 @@ Een korte samenvatting van hoe het proces van begin tot eind verliep voor de kla
 
 ## API
 Dit is een screen van de volledig API.
+
 ![API](Images/API.png)
 
 ## Documentation
